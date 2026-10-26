@@ -8,7 +8,6 @@
 --  Si usas pgAdmin: ejecuta solo el CREATE DATABASE, conéctate a
 --  "ticketexpress" y ejecuta el resto desde la sección 2.)
 CREATE DATABASE ticketexpress;
-\c ticketexpress
 
 -- 2. TABLAS (en orden lógico de dependencias) ---------------------------
 
