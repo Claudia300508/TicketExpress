@@ -263,3 +263,26 @@ SELECT * FROM funcion WHERE idfuncion = 7;
 UPDATE funcion 
 SET estado = 'en_venta' 
 WHERE idfuncion = 7;
+
+
+-- DELETE
+-- 1. Eliminar asiento en el Teatro Presidente (idrecinto = 5)
+SELECT * FROM asiento WHERE idrecinto = 5 AND fila = 'A' AND numero = '15';
+DELETE FROM asiento 
+WHERE idrecinto = 5 AND fila = 'A' AND numero = '15';
+
+-- 2. Eliminar función cancelada
+SELECT * FROM funcion WHERE idfuncion = 9 AND estado = 'cancelada';
+DELETE FROM funcion 
+WHERE idfuncion = 9 AND estado = 'cancelada';
+
+
+SELECT*FROM categoria
+
+SELECT*FROM recinto
+
+SELECT*FROM evento
+
+SELECT*FROM asiento
+
+SELECT*FROM funcion;
