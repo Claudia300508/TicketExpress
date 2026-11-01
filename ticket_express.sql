@@ -166,3 +166,70 @@ CREATE TABLE tique (
         ON DELETE RESTRICT
 );
 
+-- INSERCIÓN DE DATOS (10 REGISTROS POR TABLA)
+
+-- 1. Table categoria
+INSERT INTO categoria (categoria) VALUES
+('Conciertos'),
+('Teatro'),
+('Deportes'),
+('Festivales'),
+('Stand-up Comedy'),
+('Conferencias'),
+('Cine'),
+('Danza'),
+('Infantil'),
+('Gastronomía & Ferias');
+
+-- 2. Table recinto
+INSERT INTO recinto (nombre, direccion, ciudad, capacidadtotal) VALUES
+('Estadio Cuscatlán', 'Calle Antigua a Huizúcar', 'San Salvador', 53000),
+('Teatro Nacional de San Salvador', 'Calle Delgado', 'San Salvador', 650),
+('Gimnasio Nacional José Adolfo Pineda', 'Alameda Roosevelt', 'San Salvador', 12000),
+('Complejo Deportivo Presidente Virola', 'Final 49 Av. Sur', 'San Salvador', 8000),
+('Teatro Presidente', 'Colonia San Benito', 'San Salvador', 1400),
+('Museo MARTE - Plaza', 'Colonia San Benito', 'San Salvador', 2000),
+('Foro Universitario UCA', 'Bulevar Los Próceres', 'Antiguo Cuscatlán', 500),
+('Anfiteatro El Boquerón', 'Km 18 Carretera al Boquerón', 'Santa Tecla', 1200),
+('Teatro de Santa Ana', 'Calle Libertad', 'Santa Ana', 800),
+('Estadio Mágico González', '49 Av. Sur y 12 Calle Poniente', 'San Salvador', 35000);
+
+-- 3. Table evento
+INSERT INTO evento (nombre, descripcion, idcategoria) VALUES
+('Symphonic Rock Legends', 'Concierto con los mejores éxitos del rock clásico', 1),
+('Hamlet: La Venganza', 'Obra teatral clásica adaptada a la actualidad', 2),
+('Clásico Nacional de Fútbol', 'Partido crucial de la liga mayor de fútbol', 3),
+('Festival Noches de Jazz', 'Tres noches seguidas con artistas locales e internacionales', 4),
+('Risas de Noche de Viernes', 'Show especial de stand-up comedy', 5),
+('Summit Tecnológico 2026', 'Conferencia sobre IA y desarrollo de software moderno', 6),
+('El Lago de los Cisnes', 'Presentación estelar del Ballet Nacional', 8),
+('La Cenicienta sobre Hielo', 'Espectáculo familiar de patinaje artístico', 9),
+('Feria Gastronómica Gourmet', 'Degustación de alta cocina con los mejores chefs', 10),
+('Pop Explosion Tour', 'Concierto masivo de pop latinoamericano', 1);
+
+-- 4. Table asiento
+INSERT INTO asiento (fila, numero, zona, idrecinto) VALUES
+('A', '101', 'VIP Front Row', 1),
+('A', '102', 'VIP Front Row', 1),
+('B', '201', 'Platea Central', 1),
+('C', '301', 'Tribuna General', 1),
+('A', '001', 'Luneta Baja', 2),
+('A', '002', 'Luneta Baja', 2),
+('B', '010', 'Palco Segundo Nivel', 2),
+('A', '01', 'VIP Cancha', 3),
+('B', '05', 'Preferencial Lateral', 3),
+('A', '15', 'VIP Escenario', 5);
+
+-- 5. Table funcion
+INSERT INTO funcion (fecha, hora, idevento, idrecinto, estado) VALUES
+('2026-10-15', '20:00:00', 1, 1, 'en_venta'),
+('2026-10-20', '19:30:00', 2, 2, 'programada'),
+('2026-10-25', '15:00:00', 3, 1, 'en_venta'),
+('2026-11-01', '18:00:00', 4, 6, 'programada'),
+('2026-11-05', '21:00:00', 5, 5, 'agotada'),
+('2026-11-10', '09:00:00', 6, 7, 'programada'),
+('2026-11-15', '19:00:00', 7, 2, 'programada'),
+('2026-12-20', '16:00:00', 8, 3, 'en_venta'),
+('2026-12-22', '11:00:00', 9, 8, 'cancelada'),
+('2026-12-28', '20:30:00', 10, 10, 'programada');
+
