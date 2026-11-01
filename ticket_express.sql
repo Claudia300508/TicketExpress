@@ -233,3 +233,33 @@ INSERT INTO funcion (fecha, hora, idevento, idrecinto, estado) VALUES
 ('2026-12-22', '11:00:00', 9, 8, 'cancelada'),
 ('2026-12-28', '20:30:00', 10, 10, 'programada');
 
+
+
+-- UPDATES
+
+-- 1. Actualizar la capacidad total del Estadio Cuscatlán
+SELECT * FROM recinto WHERE nombre = 'Estadio Cuscatlán';
+UPDATE recinto 
+SET capacidadtotal = 55000 
+WHERE nombre = 'Estadio Cuscatlán';
+
+
+-- 2. Cambiar nombre de la categoría 7 para mayor claridad
+SELECT * FROM categoria WHERE idcategoria = 7;
+UPDATE categoria 
+SET categoria = 'Cine, Música & Filarmónica' 
+WHERE idcategoria = 7;
+
+
+-- 3. Actualizar la descripción del evento tecnológico
+SELECT * FROM evento WHERE idevento = 6;
+UPDATE evento 
+SET descripcion = 'Conferencia internacional sobre IA, Software y Cloud Computing' 
+WHERE idevento = 6;
+
+
+-- 4. Actualizar el estado de una función
+SELECT * FROM funcion WHERE idfuncion = 7;
+UPDATE funcion 
+SET estado = 'en_venta' 
+WHERE idfuncion = 7;
