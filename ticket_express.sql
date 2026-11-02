@@ -50,3 +50,20 @@ CREATE TABLE funcion (
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
+
+-- Actualizar el teléfono de un usuario existente
+SELECT * FROM usuario WHERE idusuario = 1;
+UPDATE usuario 
+SET telefono = '2200-1122' 
+WHERE idusuario = 1;
+
+-- Actualizar el estado de un usuario a 'inactivo'
+SELECT * FROM usuario WHERE idusuario = 3;
+UPDATE usuario 
+SET estado = 'inactivo' 
+WHERE idusuario = 3;
+
+-- Eliminar una categoría de prueba que no tenga eventos asociados
+SELECT * FROM categoria WHERE idcategoria = 10;
+DELETE FROM categoria 
+WHERE idcategoria = 10;
