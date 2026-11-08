@@ -2,17 +2,17 @@
 **Implementación de Base de Datos (DDL)**
 Este repositorio contiene la implementación oficial de la base de datos para el proyecto **TicketExpress+**, desarrollada en **PostgreSQL** mediante el Lenguaje de Definición de Datos (DDL).
 
-##  Integrantes del Equipo D.
+# Integrantes del Equipo D.
 
 * **Claudia Navarrete**
 * **Luis Pacheco**
 * **Andrés Herrera**
 
-## Objetivo de la Actividad
+# Objetivo de la Actividad
 
 El propósito de esta tarea es traducir el diagrama relacional oficial del proyecto a un script `.sql` funcional, estructurado y libre de errores. La implementación garantiza la integridad de los datos mediante el uso explícito de claves y restricciones de negocio.
 
-## ¿Qué contiene este proyecto?
+# ¿Qué contiene este proyecto?
 
 1. **Creación de la Base de Datos:** Sentencias para inicializar la base de datos de TicketExpress+.
 
@@ -24,11 +24,12 @@ El propósito de esta tarea es traducir el diagrama relacional oficial del proye
 
 
 
-**Insertar datos en las tablas**
+## Insertar datos en las tablas
+
 La actividad consiste en poblar, validar y mantener la base de datos relacional del sistema mediante la elaboración de un script SQL unificado (`script_dml.sql`). El trabajo abarca la inserción de datos iniciales coherentes, la modificación de información clave y la eliminación controlada de registros, aplicando buenas prácticas de integridad referencial y validación mediante consultas previas.
 
 
-## Requerimientos Generales
+# Requerimientos Generales
 
 El script unificado debe incluir los siguientes componentes en su estructura:
 
@@ -48,24 +49,24 @@ El script unificado debe incluir los siguientes componentes en su estructura:
    * Inclusión de consultas `SELECT` y conteos al final de cada sección para validar que los cambios fueron registrados correctamente en PostgreSQL.
 
 
-**Generación e Importación Masiva de Datos Sintéticos**
+## Generación e Importación Masiva de Datos Sintéticos
 
 En esta etapa del proyecto se diseñaron los esquemas de datos sintéticos utilizando la herramienta Mockaroo y se ejecutó la **importación masiva en PostgreSQL**, asegurando la integridad referencial y respetando el orden de dependencias de llaves foráneas (*Foreign Keys*).
 
 
-## Herramientas Utilizadas
+# Herramientas Utilizadas
 * **PostgreSQL** Motor de base de datos relacional.
 * **VScode:** Entorno de desarrollo para la gestión del repositorio y scripts SQL.
 * **Mockaroo:** Generación de archivos CSV con volumen de datos de prueba.
 * **Git & GitHub:** Control de versiones bajo el flujo de trabajo Gitflow.
 
 
-## Entidades y Registros Generados en Mockaroo
+# Entidades y Registros Generados en Mockaroo
 
 A continuación se detalla el volumen de registros por cada tabla ubicada dentro de la carpeta `CSV/`:
 
 | Entidad | Registros Generados |
-|   :---            | :---: |
+|   :---          | :---: |
 | **`categoria`** | 5 |
 | **`recinto`**   | 5 |
 | **`usuario`**   | 100 |
