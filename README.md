@@ -25,7 +25,6 @@ El propósito de esta tarea es traducir el diagrama relacional oficial del proye
 
 
 **Insertar datos en las tablas**
-## 📌 Descripción de la Actividad
 La actividad consiste en poblar, validar y mantener la base de datos relacional del sistema mediante la elaboración de un script SQL unificado (`script_dml.sql`). El trabajo abarca la inserción de datos iniciales coherentes, la modificación de información clave y la eliminación controlada de registros, aplicando buenas prácticas de integridad referencial y validación mediante consultas previas.
 
 
@@ -47,3 +46,32 @@ El script unificado debe incluir los siguientes componentes en su estructura:
 
 4. **Comprobación de Datos:**
    * Inclusión de consultas `SELECT` y conteos al final de cada sección para validar que los cambios fueron registrados correctamente en PostgreSQL.
+
+
+**Generación e Importación Masiva de Datos Sintéticos**
+
+En esta etapa del proyecto se diseñaron los esquemas de datos sintéticos utilizando la herramienta Mockaroo y se ejecutó la **importación masiva en PostgreSQL**, asegurando la integridad referencial y respetando el orden de dependencias de llaves foráneas (*Foreign Keys*).
+
+
+## Herramientas Utilizadas
+* **PostgreSQL** Motor de base de datos relacional.
+* **VScode:** Entorno de desarrollo para la gestión del repositorio y scripts SQL.
+* **Mockaroo:** Generación de archivos CSV con volumen de datos de prueba.
+* **Git & GitHub:** Control de versiones bajo el flujo de trabajo Gitflow.
+
+
+## Entidades y Registros Generados en Mockaroo
+
+A continuación se detalla el volumen de registros por cada tabla ubicada dentro de la carpeta `CSV/`:
+
+| Entidad | Registros Generados |
+|   :---            | :---: |
+| **`categoria`** | 5 |
+| **`recinto`**   | 5 |
+| **`usuario`**   | 100 |
+| **`evento`**    | 20 |
+| **`asiento`**   | 100 |
+| **`funcion`**   | 50 |
+| **`pago`**      | 300 |
+| **`tarifa`**    | 100 |
+| **`tique`**     | 500 |
