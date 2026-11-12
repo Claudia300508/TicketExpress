@@ -1,9 +1,11 @@
--- REGISTRAR COMPRA
+-- PARTE 1 - PROCEDIMIENTOS ALMACENADOS - Claudia Navarrete
+
+-- Registrar la compra de uno o más tiques para una función
 CREATE OR REPLACE PROCEDURE sp_registrar_compra(
     p_idusuario  BIGINT,
     p_idfuncion  BIGINT,
-    p_asientos   BIGINT[],
-    p_metodopago VARCHAR
+    p_asientos   BIGINT[],         
+    p_metodopago VARCHAR            
 )
 LANGUAGE plpgsql
 AS $$
@@ -13,6 +15,7 @@ DECLARE
     v_n      INT;
     r        RECORD;
 BEGIN
+
     -- 1. Validaciones de entrada
     IF p_asientos IS NULL OR cardinality(p_asientos) = 0 THEN
         RAISE EXCEPTION 'Debe indicar al menos un asiento';
@@ -30,7 +33,7 @@ BEGIN
         RAISE EXCEPTION 'La función % no existe', p_idfuncion;
     END IF;
 
-    -- 2. Validar que TODOS los asientos estén disponibles y bloquearlos
+    -- 2. Validar que TODOS los asientos estén disponibles (y bloquearlos para que nadie más los compre al mismo tiempo)
     SELECT COUNT(*), SUM(precio)
       INTO v_n, v_total
       FROM (SELECT precio
@@ -66,48 +69,9 @@ BEGIN
 END;
 $$;
 
-SELECT proname FROM pg_proc WHERE proname = 'sp_registrar_compra';
-
--- probar compra exitosa
-SELECT idasiento, precio
-  FROM tarifa
- WHERE idfuncion = 50 AND estado = 'disponible'
- ORDER BY idasiento
- LIMIT 2;
-
--- realizar compra
-CALL sp_registrar_compra(5, 50, ARRAY[8, 10], 'tarjeta_credito');
-
--- confirmación
-SELECT p.idpago, p.montototal, p.estado AS estado_pago,
-       t.idtique, t.preciopagado, t.estado AS estado_tique,
-       r.idasiento, r.estado AS estado_tarifa
-  FROM pago p
-  JOIN tique t  USING (idpago)
-  JOIN tarifa r ON r.idtarifa = t.idprecio
- WHERE p.idpago = (SELECT MAX(idpago) FROM pago);
-
-SELECT COUNT(*) AS total_pagos FROM pago;
 
 
--- Probar compra fallida
-SELECT (SELECT COUNT(*) FROM pago)  AS pagos_antes,
-       (SELECT COUNT(*) FROM tique) AS tiques_antes;
-
-SELECT idasiento FROM tarifa
- WHERE idfuncion = 50 AND estado = 'disponible'
- ORDER BY idasiento LIMIT 1;
-
-CALL sp_registrar_compra(5, 50, ARRAY[14, 8], 'efectivo');
-
--- volver a contar
-SELECT (SELECT COUNT(*) FROM pago)  AS pagos_despues,
-       (SELECT COUNT(*) FROM tique) AS tiques_despues;
-
-SELECT idasiento, estado FROM tarifa WHERE idfuncion = 50 AND idasiento = 14;
-
-
--- PROCEDIMIENTO DE CANCELACIÓN
+-- Cancelar una compra (se cancela el pago completo y todos sus tiques)
 CREATE OR REPLACE PROCEDURE sp_cancelar_compra(p_idpago BIGINT)
 LANGUAGE plpgsql
 AS $$
@@ -148,20 +112,3 @@ BEGIN
     RAISE NOTICE 'Compra % cancelada: % tique(s) cancelado(s) y asientos liberados', p_idpago, v_n;
 END;
 $$;
-
-SELECT proname FROM pg_proc WHERE proname = 'sp_cancelar_compra';
-
--- cancelar compra anterior
-CALL sp_cancelar_compra(301);
-
--- comprobación
-SELECT p.idpago, p.estado AS estado_pago,
-       t.idtique, t.estado AS estado_tique,
-       r.idasiento, r.estado AS estado_tarifa
-  FROM pago p
-  JOIN tique t  USING (idpago)
-  JOIN tarifa r ON r.idtarifa = t.idprecio
- WHERE p.idpago = 301;
-
--- comprobar que no se repita dos veces
-CALL sp_cancelar_compra(301);
