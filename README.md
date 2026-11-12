@@ -99,12 +99,10 @@ de la venta de tiques.
 
 | Tipo | Nombre | Descripción |
 |---|---|---|
-| Procedimiento | `sp_registrar_compra(p_idusuario, p_idfuncion, p_asientos, p_metodopago)` | Registra la 
-compra de uno o más tiques para una función, validando la disponibilidad |
+| Procedimiento | `sp_registrar_compra(p_idusuario, p_idfuncion, p_asientos, p_metodopago)` | Registra la compra de uno o más tiques para una función, validando la disponibilidad |
 | Procedimiento | `sp_cancelar_compra(p_idpago)` | Cancela una compra y libera sus asientos |
 | Función | `fn_asientos_disponibles(p_idfuncion)` | Devuelve la cantidad de asientos disponibles de una función |
 | Función | `fn_ingresos_evento(p_idevento)` | Devuelve el monto total de ingresos de un evento |
 | Tabla | `auditoria_venta_tique` | Guarda `idtique`, fecha de la venta y usuario de cada venta |
 | Trigger | `trg_auditar_venta_tique` (`AFTER INSERT` en `tique`) | Registra la venta en la tabla de auditoría |
 | Trigger | `trg_validar_funcion_vigente` (`BEFORE INSERT` en `tique`) | Rechaza ventas para funciones que ya pasaron |
-
