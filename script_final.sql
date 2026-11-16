@@ -259,16 +259,30 @@ CREATE TRIGGER trg_auditar_venta_tique
 -- =====================================================================
 -- PRUEBAS EJECUTADAS
 -- Requisito: base recien cargada con preparar_bd.sql (la compra exitosa
--- genera el pago 301) y fecha actual anterior al 25/11/2026 (la funcion 29
--- es del 25/11; para otra fecha, elegir una funcion futura con asientos libres:
---   SELECT idfuncion, fecha, hora, estado, fn_asientos_disponibles(idfuncion)
---   FROM funcion WHERE fecha + hora > now() AND estado IN ('en_venta','programada');
--- ).
+-- genera el pago 301). Ejecutar las pruebas UNA sola vez por carga.
+-- La funcion 29 es del 25/11/2026: si el script se ejecuta cuando esa fecha
+-- ya paso, el paso PREPARACION la mueve 30 dias hacia adelante para que las
+-- pruebas funcionen igual en cualquier fecha (antes del 25/11 no cambia nada).
 -- Las pruebas que DEBEN fallar estan dentro de un bloque DO que atrapa el
 -- error y muestra el mensaje (pestana Messages), para que el script corra
 -- completo. Para ver el error real, ejecutar solo la linea CALL indicada.
 -- Si se ejecuta en pgAdmin, correr cada bloque seleccionandolo (F5).
 -- =====================================================================
+
+-- ---------------------------------------------------------------------
+-- PREPARACION: la funcion 29 debe ser futura para poder venderle tiques.
+-- Si su fecha y hora ya pasaron (o faltan menos de 24 horas), se mueve a
+-- 30 dias desde hoy. Si todavia es futura, el UPDATE no modifica ninguna fila.
+-- ---------------------------------------------------------------------
+SELECT idfuncion, fecha, hora, estado FROM funcion WHERE idfuncion = 29;
+
+UPDATE funcion
+   SET fecha = CURRENT_DATE + 30
+ WHERE idfuncion = 29
+   AND fecha + hora < CURRENT_TIMESTAMP + INTERVAL '1 day';
+
+SELECT idfuncion, fecha, hora, estado FROM funcion WHERE idfuncion = 29;
+
 
 -- ---------------------------------------------------------------------
 -- 0. ESTADO INICIAL (funcion 29, evento 6, usuario 5)
