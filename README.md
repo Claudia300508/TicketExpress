@@ -106,3 +106,39 @@ de la venta de tiques.
 | Tabla | `auditoria_venta_tique` | Guarda `idtique`, fecha de la venta y usuario de cada venta |
 | Trigger | `trg_auditar_venta_tique` (`AFTER INSERT` en `tique`) | Registra la venta en la tabla de auditoría |
 | Trigger | `trg_validar_funcion_vigente` (`BEFORE INSERT` en `tique`) | Rechaza ventas para funciones que ya pasaron |
+
+
+
+## Seguridad en TicketExpress+
+
+El objetivo es controlar quién puede hacer qué en la base de datos mediante roles, usuarios y privilegios (`GRANT` / `REVOKE`).
+
+*Política de seguridad (Integrante 1: Claudia Navarrete)*
+
+Se definieron tres **roles** (grupos de permisos que no inician sesión) y un **usuario** por cada rol (la cuenta con contraseña que se conecta a la base). Cada usuario hereda los permisos de su rol.
+
+| Rol | Usuario | Función |
+|---|---|---|
+| `rol_administrador` | `usr_admin` | Control total de la base de datos |
+| `rol_operador_ventas` | `usr_ventas` | Registra y cancela ventas y consulta catálogos |
+| `rol_analista` | `usr_analista` | Solo lectura, para reportes |
+
+> Las contraseñas son de práctica (por ejemplo `Demo_ventas_2026`) y están en `roles_usuarios.sql`. No se deben usar claves reales.
+
+**Archivos**
+
+| Archivo | Qué hace |
+|---|---|
+| `roles_usuarios.sql` | Crea los 3 roles y los 3 usuarios, y asigna cada usuario a su rol |
+| `privilegios.sql` | Quita los permisos por defecto (`REVOKE`) y otorga a cada rol solo lo que necesita (`GRANT`) |
+
+**Privilegios por rol**
+
+| Rol | Tablas | Privilegios |
+|---|---|---|
+| `rol_administrador` | Todas | `ALL` y ejecutar los dos procedimientos |
+| `rol_operador_ventas` | categoria, recinto, evento, asiento, funcion | `SELECT` |
+| | tarifa | `SELECT`, `UPDATE` |
+| | pago, tique | `SELECT`, `INSERT`, `UPDATE` |
+| | usuario (sin la columna `clave`) | `SELECT` |
+| | auditoria_venta_tique | `INSERT` |
